@@ -17,7 +17,7 @@
 - $N_t(a)$：在t时刻之前，动作a已经被选择的次数，number of times action a has been selected up prior to time t
 - $H_t(a)$：在t时刻选择动作a的偏好程度，learned preference for selecting action a at time t
 - $π_t(a)$：在t时刻选择动作a的概率，probability of selecting action a at time t
-- $R_t$：给定策略$π_t$，在t时刻的期望奖励，estimate at time t of the expected reward given$π_t$
+- $R_t$：给定策略 $π_t$ ，在t时刻的期望奖励，estimate at time t of the expected reward given $π_t$
 
 ## 什么是强化学习
 
@@ -30,30 +30,55 @@
 - **试错**（trial-and-error search ）：agent需要不断尝试，通过reward的反馈学习策略。
 - **延迟奖励**（delayed reward） ：某个时刻的action可能会对后面时刻的reward有影响（深远影响）。
 
-### Exploit vs Explore
+### Exploit v.s. Explore
 
 - **exploit**: 代表利用已有的信息去获得最大的奖励。
-- **explore** 代表去探索一些没有尝试过的行为，去获得可能的更大的奖励。
+- **explore**:  代表去探索一些没有尝试过的行为，去获得可能的更大的奖励。
 
 ## 强化学习的几个要素
 
-- **policy**: 状态到行为的映射，定义agent在某个状态下应该如何采取行为，state $\rightarrow$ action。
+- **policy**: **状态到行为的映射**，定义agent在某个状态下应该如何采取行为，state $\rightarrow$ action。
 - **reward function**: 在某个状态下，agent能够收到的**即时反馈**。
 - **value function**: 衡量在某个状态下，能够获得的**长期反馈**。
 - **modle (of the environment，可选的)**: 模型用来模拟环境的行为，**给定一个状态和动作，模型可以预测下一个状态和奖励**。
 
-## RL vs Evolutionary Methods
+## RL v.s. 监督学习
 
-- **Evolutionary Methods**（遗传算法，具体可以回顾[之前的博客](https://applenob.github.io/ga.html)），直接在policy空间中搜索，并计算最后的得分。通过一代代的进化来找寻最优policy。
+- 监督学习：agent知道每个状态下，正确的动作应该是什么。可以理解成是模仿学习。
+- 强化学习：agent不知道每个状态下的正确动作是什么，但会在一定时间后获得奖励信号，据此推测应该执行什么动作最好。
+
+## RL v.s. Evolutionary Methods
+
+- **Evolutionary Methods**（遗传算法，具体可以回顾[之前的博客](https://applenob.github.io/ga.html)），**直接在policy空间中搜索**，并计算最后的得分。通过一代代的进化来找寻最优policy。
 - 遗传算法忽略了policy实际上是state到action的映射，它不关注agent和环境的互动，只看最终结果。
 
 ## 局限性
 
 强化学习非常依赖**状态**（state）的概念。state既是策略函数和价值函数的输入，又是**环境模型**（model）的输入和输出。
 
-## Tic-Tac-Toe（井字棋）
+## 强化学习的分类
 
-![tic-tac-toe](../res/ttt.png)
+- 按收集经验时是否按照目标策略进行采样：
+  - 是 -> 同策学习，on-policy learning
+  - 否 -> 异策学习，off-policy learning
+- 按有无（环境）模型：
+  - 有 -> 有模型学习
+  - 无 -> 无模型学习
+- 按价值更新的方式：
+  - 回合更新
+  - 时序差分更新
+- 按主要的建模对象：
+  - 基于价值
+  - 基于策略
+- 按任务是否连续：
+  - 回合制任务
+  - 连续性任务
+
+## 代码示例
+
+### Tic-Tac-Toe（井字棋）
+
+![tic-tac-toe](intro_note_01/ttt.png)
 
 - 一个简单的应用强化学习的例子。
 - 定义policy：任何一种局面下，该如何落子。
@@ -181,10 +206,10 @@ def act(self):
 
 可以在终端和训练好的ai player对弈：
 
-![ttt_demo](../res/ttt_demo.jpg)
+![ttt_demo](intro_note_01/ttt_demo.jpg)
 
 我试了好几局，都是平局，看来训练的还是不错的。
 
-![ttt_value](../res/ttt_value.jpg)
+![ttt_value](intro_note_01/ttt_value.jpg)
 
 模型训练好后，保存的数据就是价值表格。但我们从中也可以看到一个问题，一个像tic-tac-toe这么简单的问题，使用价值表格保存所有状态的价值，也需要耗费大量的存储。

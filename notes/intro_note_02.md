@@ -1,4 +1,4 @@
-# 2. Multi-armed Bandits
+# 2. Multi-armed Bandits 多臂老虎机
 
 ## k-armed Bandit Problem，K臂老虎机
 
@@ -25,7 +25,7 @@
 - 一共跑了2000个独立的run。
 - 实验结果（$\epsilon$-greedy的优越性）：
 
-![average_reward](../res/average_reward.png)
+![average_reward](intro_note_02/average_reward.png)
 
 ### 增量式的估计
 
@@ -33,7 +33,7 @@
 - 改写成增量式的形式：$Q_{n+1} = Q_n + \frac{1}{n}[R_n-Q_n]$
 - 即：**新估计 = 老估计 + 步长 × [奖励 - 老估计]**
 
-![bandit_algo](../res/bandit_algo.png)
+![bandit_algo](intro_note_02/bandit_algo.png)
 
 ### Optimistic Initial Values
 
@@ -41,14 +41,14 @@
 - 这样会鼓励explore。
 - 对于nonstationary的问题不适用。
 
-![optimistic](../res/optimistic.png)
+![optimistic](intro_note_02//optimistic.png)
 
 ## Upper-Confidence-Bound Action Selection（UCB）
 
 - $A_t = \underset{a}{argmax}[Q_t(a)+c\sqrt{\frac{log\;t}{N_t(a)}}]$
 - 其中，$N_t(a)$代表动作a在t之前出现的次数，根号项衡量动作a的不确定性，如果某个动作已经使用了很多次，则倾向使用使用次数少的，这样达到explore的效果。
 
-![ucb](../res/ucb.png)
+![ucb](intro_note_02/ucb.png)
 
 ## Gradient Bandit Algorithms
 
@@ -57,11 +57,11 @@
 - 更新规则：
   - $H_{t+1}(A_t) = H_t(A_t) + \alpha(R_t-\overline R_t)(1-\pi _t(A_t))$
 
-![gradient_bandit](../res/gradient_bandit.png)
+![gradient_bandit](intro_note_02/gradient_bandit.png)
 
 ## 各种方法对比
 
-![bandit_methods](../res/bandit_methods.png)
+![bandit_methods](intro_note_02/bandit_methods.png)
 
 ## 代码分析
 
